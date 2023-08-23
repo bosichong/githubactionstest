@@ -1,15 +1,7 @@
 name: Actions CI - Next.js version 12 static site export, GitHub Actions Build and Deploy
 on:
   push:
-    branches: [ master ]
-
-    # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-  # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: write
-
+    branches: [ main ]
 # 执行的一项或多项任务
 jobs:
   build-and-deploy:
@@ -27,7 +19,7 @@ jobs:
         uses: pnpm/action-setup@v2
         id: pnpm-install
         with:
-          version: 8
+          version: 7
           run_install: true
       - name: 安装依赖 ⚙️
         run: pnpm install
@@ -36,10 +28,8 @@ jobs:
           npm run build
           touch out/.nojekyll
       - name: 部署 🚀
-        # https://github.com/JamesIves/github-pages-deploy-action
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: out
           clean: true
-
